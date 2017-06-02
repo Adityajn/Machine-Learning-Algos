@@ -1,0 +1,62 @@
+1.
+
+Sckit Learn already includes a no of datasets (CSV file) and a no of helper function to access them
+
+example- Iris dataset
+
+from sklearn.datasets import load_iris
+iris = load_iris()
+
+iris.keys()	#give information about data in file
+		
+#dict_keys(['data', 'feature_names', 'target_names', 'target', 'DESCR'])
+#data.shape = (no_of_samples,no_of_features)
+#target.shape=no of samples
+#target_name is names array associated with each target
+#feature_name is names array associated with each feature
+
+#use following to determine location of downloaded datasets
+from sklearn.datasets import get_data_home
+get_data_home()
+
+example- digit dataset
+
+from sklearn.datasets import load_digits
+digits = load_digits()
+digits.keys()
+#dict_keys(['data', 'images', 'target_names', 'target', 'DESCR'])
+#data.shape is no_of_images*no_of_pixel_value
+#data.images is 3d matrix containing no_of_images i.e. 2D pixel matrix of images of digit
+#data.target is target value of digit
+
+#visualize 64 images
+fig = plt.figure(figsize=(6, 6))  # figure size in inches
+fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
+# plot the digits: each image is 8x8 pixels
+for i in range(64):
+    ax = fig.add_subplot(8, 8, i + 1, xticks=[], yticks=[])
+    ax.imshow(digits.images[i], cmap=plt.cm.binary, interpolation='nearest')
+    
+    # label the image with the target value
+    ax.text(0, 7, str(digits.target[i]))
+
+
+2.
+Methods of loading datasets
+
+
+Scikit-learn makes available a host of datasets for testing learning algorithms. They come in three flavors:
+    Packaged Data: 
+these small datasets are packaged with the scikit-learn installation, and can be downloaded using the tools in sklearn.datasets.load_*
+
+    Downloadable Data:
+ these larger datasets are available for download, and scikit-learn includes tools which streamline this process. These tools can be found in sklearn.datasets.fetch_*
+
+
+    Generated Data: 
+there are several datasets which are generated from models based on a random seed. These are available in the sklearn.datasets.make_*
+
+
+
+
+

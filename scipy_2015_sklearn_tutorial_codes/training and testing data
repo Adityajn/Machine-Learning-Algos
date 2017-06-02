@@ -1,0 +1,40 @@
+1. 
+
+Training and testing data
+
+There is no hard and fast rule that how much data we use for trainig and how much for testing.
+We do not use all data for trainng to avoid problem of overfitting
+generally 20% test and 80% training data is used
+
+2.
+
+If our data is sorted by labels such as
+0,0,0,0,1,1,1,1,2,2,2,2
+
+then taking testing data may take only certain king of data.
+so data must be shuffled before seprating testing an training data
+
+import numpy as np
+X, y = iris.data, iris.target
+
+rng = np.random.RandomState(0)
+permutation = rng.permutation(len(X))
+X, y = X[permutation], y[permutation]
+
+
+3. 
+Splitting data
+sckit learn has libraries for splitting data
+This will automatically shuffle and split
+
+from sklearn.cross_validation import train_test_split
+train_X, test_X, train_y, test_y = train_test_split(X, y, train_size=0.5, random_state=1999)
+
+
+4.
+Accuracy= No_of_test_cases_correct/No_of_test_cases
+
+pred_y = predict(test_X)
+accuracy = np.sum(pred_y == test_y) / float(len(test_y))
+
+#np.sum([False,True,True,True,False])) = 3
