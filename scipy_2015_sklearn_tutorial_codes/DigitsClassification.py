@@ -22,15 +22,21 @@ tsne=TSNE()
 X_trans = tsne.fit_transform(X_train)
 
 fig,ax=plt.subplots(1,2)
-ax[0].scatter(X_trans[:,0],X_trans[:,1],c=y_train,label='True clusters')
-ax[1].scatter(X_trans[:,0],X_trans[:,1],c=clusters,label='Unsupervised clusters')
+ax[0].scatter(X_trans[:,0],X_trans[:,1],c=y_train)
+ax[1].scatter(X_trans[:,0],X_trans[:,1],c=clusters)
 
+"""
 #Lets predict test data
 from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors=3)
 classifier.fit(X_train,y_train)
 y_predict = classifier.predict(X_test)
+"""
 
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(X_train,y_train)
+y_predict=classifier.predict(X_test)
 print("Accuracy : {}".format(classifier.score(X_test,y_test)))
 
 
@@ -45,4 +51,13 @@ for i in range(64):
     else:
         ax.text(0,7,str(y_predict[i]),color='r')
     ax.text(1,0,str(y_test[i]),color='b')
+
+
+
+#Lets see where it is doing wrong
+from sklearn.metrics import confusion_matrix
+conf_mat = confusion_matrix(y_test,y_predict)
+print(conf_mat)
+
+plt.matshow(conf_mat)
 plt.show()
