@@ -1,0 +1,154 @@
+Tutorial for numpy for data Science
+
+
+Python list are powerful but misses a feature which is need of data science i.e mat op over collection and speed
+
+
+Numpy array
+-> alternative to python list
+-> can do calculation over entire array
+-> easy and fast
+
+
+1. numpy can do calculation on whole array
+------------------------------------------------------
+import numpy as np
+np_height=np.array([56,67.8,123.5,45.9,100.2,87.7])
+np_weight=np.array([7,5.6,5.7,4.5,4.9,5.2])
+bmi = np_weight/np_height ** 2  #can perform calcation over entire array
+print(bmi)
+->	[ 1.14285714  2.1619898   3.80116959  2.26666667  4.17326114  3.2433432 ]
+print(bmi>4)
+-> [False False False False  True False]
+print(bmi[bmi>3.5])
+-> [ 3.80116959  4.17326114]
+a.fill(0)		#fill all values with 0
+------------------------------------------------------
+
+
+2. can contain only one type ov item
+------------------------------------------------------
+narr=np.array([1,"aditya",True])    #can contain only one type
+print(narr)							
+-> ['1' 'aditya' 'True']			
+									
+narr.dtype 							#gives dtype
+									
+narr.astype('int')					#change type
+------------------------------------------------------
+
+
+
+
+3. array is type ndarray(n- dimensional array)
+--------------------------------------------------
+print(type(bmi))
+-> <class 'numpy.ndarray'>
+np_2d=np.array([[56,67.8,123.5,45.9,100.2,87.7],[7,5.6,5.7,4.5,4.9,5.2]])
+print(np_2d)
+-> [[  56.    67.8  123.5   45.9  100.2   87.7]
+ [   7.     5.6    5.7    4.5    4.9    5.2]]
+print(np_2d.shape)
+-> (2, 6)
+print(np_2d[:,2:3])	#height and weight of 2nd and 3rd person
+-> [[ 123.5]
+ 	[5.7]]
+---------------------------------------------------
+
+
+how diff form python list
+1. can contain only single type
+2. list1+list2 perform concatination of python list
+	list1+list2 perform addition of items in numpy array
+
+4. mean,median,std,var,corr coeff
+suppose students are standing in a row from smallest to highest
+mean-> avg of all height
+meadian-> height of person standing in middle of row
+variance->average of squared difference all entry from mean
+standard deviation ->  heights are how much deviated from mean on average
+correlation coeff -> to if 2 type of data are correlated(+ means directly proportional, - means inversly proportinal, 0 means no relation )
+----------------------------------------------------
+np.mean(np_height)
+np.median(np_height)
+np.var(np_height)
+np.std(np_height)
+np.corrcoef(np_weight,np_height)
+----------------------------------------------------
+
+5. creating seq
+----------------------------------------------------
+arange is numpy version of range
+np.arange(start=2,stop=18,step=2,dtype=int)
+narr.reshape(2,3,2,4) 				#new dimensions will be added in front
+#here 2 cubes,3 depth,2 rows, 4 colums
+narr[cubes,depth,row,colums]			#selecting also follows same procedure
+#ex narr[:,0,:,3]					#select both cubes,zero depth, boths rows, 4th column elements
+
+linspace is way to create seq with num of points between start and stop, endpoint means do we have include endpoint in those 4 point
+np.linspace(start=2,stop=18,num=4,endpoint=True)
+[  2.     7.33333333  12.66666667  18.  ]
+np.linspace(start=2,stop=18,num=4,endpoint=False)
+[  2.   6.  10.  14.]
+
+np.random.normal(loc=0.0,scale=1.0,size=) #loc=mean, scale=standard dev size=10,size=(10,10),size=(10,10,10) tuple
+
+np.random.randn(size)			#size but loc
+
+arr.fill(0)				#fill all values with 0
+
+arr[start:stop:step]			#use to select indices and create a seq
+
+
+6. plotting graphs
+------------------------------------------------------
+import matplotlib.pyplot as plt
+plt.plot(x1,y1,label='l1','colorsymbol',x2,y2,'color',label='l2',.....)	
+#or
+plt.plot(x1,y1,label='l1','colorsymbol')
+plt.plot(x2,y2,label='l2','colorsymbol')
+#xi vs yi with color can be r,b,g,y,c,k,w,m etc	
+#symbol can be -,s,^,o,+,v,>,<,.,;,:,x,
+#label is string value, use plt.legend() for showing label.
+plt.show()
+plt.legend()
+plt.xlabel('xlab')
+plt.ylabel('ylab')
+plt.title('title')
+
+plt.scatter(x,y,'color')
+
+plt.figure() #starts a new figure
+
+plt.subplot(row,col,activeplot)
+ex-
+plt.subplot(2,1,1)
+plt.plot(np.arange(100,200,1))
+plt.subplot(2,1,2)
+plt.plot(np.sin(np.arange(100,200,1)))
+plt.show()
+
+hold(False); 		#to erase previous plot as we add new plot means does not hold figure
+
+plt.grids();		#to show grid
+plt.clf()			#clear current plt
+
+plt.close();		#to close current window
+plt.close('all')	#to close all window
+
+
+
+7. working with images
+-----------------------------------------------------------
+import matplotlib.pyplot as plt
+img=plt.imread('photo.png')
+plt.imshow(img,extent=[-10,10,-10,10],cmap=plt.cm.bone)		#cmap(color map)=cm.bone,cm.winter   extent=fit image to extent
+plt.show()
+
+
+
+8. Histogram-> pixel vs no of pixel
+-------------------------------------------------------------
+import matplotlib.pyplot as plt
+plt.hist(array,no_of_bins)	#no_of_bins by default is 10
+
